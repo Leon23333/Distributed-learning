@@ -1,0 +1,26 @@
+logging:
+  level:
+    com:
+      xu:
+        repository: debug
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.xu.entity
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3306/seckill_dubbo?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT
+    username: root
+  dubbo: 
+    application:
+      name: provider
+    metadata-report:
+      address: zookeeper://127.0.0.1:2181
+    protocol:
+      name: dubbo
+      port: 20880
+    registry:
+      address: zookeeper://127.0.0.1:2181
+    scan: com.xu.service

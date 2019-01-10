@@ -1,7 +1,11 @@
-package com.xu.service;
-
-import com.xu.entity.User;
-
-public interface UserService {
-	User saveUser(User user);
-}
+//package com.xu.service;
+//
+//import java.util.List;
+//
+//import com.xu.entity.User;
+//
+//public interface UserService {
+//	void insert(User user);
+//	
+//	List<User> findAll();
+//}

@@ -1,5 +1,7 @@
 package com.xu.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -10,10 +12,15 @@ public class MyService {
 	@Reference
 	UserService userService;
 	
-	public User saveUser() {
+	public void saveUser() {
 		User user = new User();
+		user.setId("1");
 		user.setUsername("zhangsan");
-		return userService.saveUser(user);
+		userService.insert(user);
+	}
+	
+	public List<User> findAllUser() {
+		return userService.findAll();
 	}
 
 }
