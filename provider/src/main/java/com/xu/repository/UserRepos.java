@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.xu.entity.User;
 
 @Repository
-public interface UserRepository {
+public interface UserRepos {
 	int insert(User user);
 	
 	List<User> findAll();

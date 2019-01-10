@@ -7,13 +7,13 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1849464861258353508L;
-	private String id;
+	private Long id;
 	private String username;
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getUsername() {

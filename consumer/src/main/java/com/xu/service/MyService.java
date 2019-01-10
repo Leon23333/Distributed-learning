@@ -13,10 +13,6 @@ public class MyService {
 	UserService userService;
 	
 	public void saveUser() {
-		User user = new User();
-		user.setId("1");
-		user.setUsername("zhangsan");
-		userService.insert(user);
 	}
 	
 	public List<User> findAllUser() {
