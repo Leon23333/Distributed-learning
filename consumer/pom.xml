@@ -19,7 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.xu</groupId>
-			<artifactId>provider</artifactId>
+			<artifactId>apis</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
