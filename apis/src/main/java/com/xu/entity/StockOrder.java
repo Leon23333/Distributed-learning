@@ -2,11 +2,10 @@ package com.xu.entity;
 
 import java.util.Date;
 
-public class Orders {
+public class StockOrder {
 	private Long id;
-	private Long goodsId;
+	private Long stockId;
 	private Integer amount;
-	private Long userId;
 	private Date createTime;
 	
 	public Long getId() {
@@ -15,11 +14,11 @@ public class Orders {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getGoodsId() {
-		return goodsId;
+	public Long getStockId() {
+		return stockId;
 	}
-	public void setGoodsId(Long goodsId) {
-		this.goodsId = goodsId;
+	public void setStockId(Long stockId) {
+		this.stockId = stockId;
 	}
 	public Integer getAmount() {
 		return amount;
@@ -27,16 +26,12 @@ public class Orders {
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public Long getUserId() {
-		return userId;
-	}
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
 	public Date getCreateTime() {
 		return createTime;
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	
+	
 }

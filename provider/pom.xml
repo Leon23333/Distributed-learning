@@ -19,7 +19,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.xu</groupId>
-			<artifactId>apis</artifactId>
+			<artifactId>interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		

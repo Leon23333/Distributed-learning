@@ -9,8 +9,8 @@
 		<artifactId>dubbo-learning</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>apis</artifactId>
-	<name>apis</name>
+	<artifactId>interface</artifactId>
+	<name>interface</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

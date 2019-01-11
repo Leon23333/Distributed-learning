@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xu.repository.OrderRepos">
+	<select id="getAll" resultType="StockOrder">
+		select * from stock_order
+	</select>
+	
+	<select id="getById" parameterType="java.lang.Long" resultType="StockOrder">
+		select * from stock_order where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<insert id="insert" parameterType="StockOrder" useGeneratedKeys="true" keyProperty="id">
+		insert into stock_order(stock_id,amount,create_time) values(#{stockId,jdbcType=BIGINT},#{amount},#{createTime})
+	</insert>
+	
+	<update id="updateById" parameterType="StockOrder">
+		update stock_order set stock_id = #{stockId,jdbcType=BIGINT}, amount = #{amount}, create_time = #{createTime} where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

@@ -2,7 +2,7 @@ package com.xu.entity;
 
 import java.io.Serializable;
 
-public class Goods implements Serializable {
+public class Stock implements Serializable {
 	/**
 	 * 
 	 */
