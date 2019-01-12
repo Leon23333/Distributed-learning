@@ -11,6 +11,8 @@ public class Stock implements Serializable {
 	private String name;
 	private String descs;
 	private Integer amount;
+	private Integer version;
+	
 	public Long getId() {
 		return id;
 	}
@@ -34,6 +36,12 @@ public class Stock implements Serializable {
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+	public Integer getVersion() {
+		return version;
+	}
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 	
 	

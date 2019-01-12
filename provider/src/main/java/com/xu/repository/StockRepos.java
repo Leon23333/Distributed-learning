@@ -15,4 +15,6 @@ public interface StockRepos {
 	Long insert(Stock stock);
 	
 	int updateById(Stock stock);
+	
+	int updateByIdOptimistic(Stock stock);
 }

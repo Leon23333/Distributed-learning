@@ -16,4 +16,8 @@
 	<update id="updateById" parameterType="Stock">
 		update stock set name = #{name,jdbcType=VARCHAR}, descs = #{descs,jdbcType=VARCHAR}, amount = #{amount,jdbcType=INTEGER} where id = #{id,jdbcType=BIGINT}
 	</update>
+	
+	<update id="updateByIdOptimistic" parameterType="Stock">
+		update stock set name = #{name}, descs = #{descs}, amount = #{amount}, version = version+1 where id = #{id} and version = #{version}
+	</update>
 </mapper>

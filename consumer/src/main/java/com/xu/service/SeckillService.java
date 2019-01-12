@@ -22,5 +22,9 @@ public class SeckillService{
 	public Long createWrongOrder(Long stockId) throws Exception {
 		return orderService.createWrongOrder(stockId);
 	}
+	
+	public Long createOrderOptimistic(Long stockId) throws Exception {
+		return orderService.createOrderOptimistic(stockId);
+	}
 
 }
