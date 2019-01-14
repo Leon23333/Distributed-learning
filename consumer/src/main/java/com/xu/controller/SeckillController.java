@@ -1,5 +1,8 @@
 package com.xu.controller;
 
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,8 @@ public class SeckillController {
 	@Autowired
 	private SeckillService seckillService;
 
+	private Lock lock = new ReentrantLock();
+
 	@RequestMapping("/createWrongOrder/{stockId}")
 	public Long createWrongOrder(@PathVariable Long stockId) {
 		Long orderId = null;
@@ -21,7 +26,7 @@ public class SeckillController {
 		}
 		return orderId;
 	}
-	
+
 	@RequestMapping("/createOrderOptimistic/{stockId}")
 	public Long createOrderOptimistic(@PathVariable Long stockId) {
 		Long orderId = null;
@@ -32,11 +37,39 @@ public class SeckillController {
 		}
 		return orderId;
 	}
-	
-//	@RequestMapping("/findAll")
-//	private List<User> findAll(){
-//		return seckillService.findAll();
-//	}
-	
+
+	// 使用ReentrantLock
+	@RequestMapping("/createOrderLock/{stockId}")
+	public Long createOrderLock(@PathVariable Long stockId) {
+		Long orderId = null;
+		lock.lock();
+		try {
+			orderId = seckillService.createWrongOrder(stockId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+		return orderId;
+	}
+
+	// 使用synchronized
+	@RequestMapping("/createOrderSynchronized/{stockId}")
+	public Long createOrderSynchronized(@PathVariable Long stockId) {
+		Long orderId = null;
+		synchronized (this) {
+			try {
+				orderId = seckillService.createWrongOrder(stockId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return orderId;
+	}
+
+	// @RequestMapping("/findAll")
+	// private List<User> findAll(){
+	// return seckillService.findAll();
+	// }
+
 }
-  
