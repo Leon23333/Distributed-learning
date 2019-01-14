@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.xu.entity.StockOrder;
+import com.xu.aop.ServiceLimit;
 import com.xu.config.RedisKeyPrefix;
 import com.xu.entity.Stock;
 import com.xu.repository.OrderRepos;
@@ -30,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
 	private RedisTemplate<String, Stock> redisTemplate;
 
 	@Override
+	@ServiceLimit
 	public Long createWrongOrder(Long stockId) throws Exception {
 		// 检查库存
 		Stock stock = checkStock(stockId);
@@ -43,6 +45,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@ServiceLimit
 	public Long createOrderOptimistic(Long stockId) throws Exception {
 		// 检查库存
 		Stock stock = checkStock(stockId);
