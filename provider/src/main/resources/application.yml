@@ -11,8 +11,21 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/seckill_dubbo?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8
+    url: jdbc:mysql://127.0.0.1:3306/seckill_dubbo?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2b8&autoReconnect=true&useSSL=true
     username: root
+    initialSize: 5
+    minIdle: 1
+    maxActive: 50
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'X'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: false
+    filters: stat,wall,log4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   dubbo: 
     application:
       name: provider
