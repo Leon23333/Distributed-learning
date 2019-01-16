@@ -5,6 +5,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
@@ -29,6 +32,8 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepos orderRepos;
 	@Resource
 	private RedisTemplate<String, Stock> redisTemplate;
+	@Autowired
+	private RedissonClient redissonClient;
 
 	@Override
 	@ServiceLimit
@@ -86,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
 	private int saleStock(Stock stock) {
 		stock.setAmount(stock.getAmount() - 1);
 		int count = stockRepos.updateById(stock);
-		
+
 		String key = RedisKeyPrefix.STOCK + stock.getId();
 		redisTemplate.opsForValue().set(key, stock, 600, TimeUnit.SECONDS);
 		return count;
@@ -98,5 +103,29 @@ public class OrderServiceImpl implements OrderService {
 		order.setAmount(1);
 		order.setCreateTime(new Date());
 		return orderRepos.insert(order);
+	}
+
+	@Override
+	public Long createOrderRedisson(Long stockId) throws Exception {
+		RLock lock = redissonClient.getLock("seckill");
+		try {
+			boolean isLocked = lock.tryLock(3, 10, TimeUnit.SECONDS);
+			if (isLocked) {
+				// 检查库存
+				Stock stock = checkStock(stockId);
+
+				// 扣减库存
+				saleStock(stock);
+
+				// 生成订单
+				Long orderId = createOrder(stock);
+				return orderId;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			lock.unlock();
+		}
+		return null;
 	}
 }

@@ -10,4 +10,9 @@ public interface OrderService {
 	 * 乐观锁
 	 */
 	Long createOrderOptimistic(Long stockId) throws Exception;
+	
+	/*
+	 * Redisson分布式锁
+	 */
+	Long createOrderRedisson(Long stockId) throws Exception;
 }

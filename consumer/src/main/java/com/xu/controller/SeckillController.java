@@ -67,9 +67,17 @@ public class SeckillController {
 		return orderId;
 	}
 
-	// @RequestMapping("/findAll")
-	// private List<User> findAll(){
-	// return seckillService.findAll();
-	// }
-
+	//分布式锁
+	@RequestMapping("/createOrderRedisson/{stockId}")
+	public Long createOrderRedisson(@PathVariable Long stockId) {
+		Long orderId = null;
+		synchronized (this) {
+			try {
+				orderId = seckillService.createOrderRedisson(stockId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return orderId;
+	}
 }
