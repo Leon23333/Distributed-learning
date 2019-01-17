@@ -67,13 +67,27 @@ public class SeckillController {
 		return orderId;
 	}
 
-	//分布式锁
+	// Redisson分布式锁
 	@RequestMapping("/createOrderRedisson/{stockId}")
 	public Long createOrderRedisson(@PathVariable Long stockId) {
 		Long orderId = null;
 		synchronized (this) {
 			try {
 				orderId = seckillService.createOrderRedisson(stockId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return orderId;
+	}
+
+	// redis实现的可重入分布式锁
+	@RequestMapping("/createOrderRedisReenrantLock/{stockId}")
+	public Long createOrderRedisReenrantLock(@PathVariable Long stockId) {
+		Long orderId = null;
+		synchronized (this) {
+			try {
+				orderId = seckillService.createOrderRedisReenrantLock(stockId);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

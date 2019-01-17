@@ -9,15 +9,9 @@ import com.xu.service.OrderService;
 
 @Service
 public class SeckillService{
-//	@Reference
-//	UserService userService;
 	
 	@Reference
 	OrderService orderService;
-	
-//	public List<User> findAll(){
-//		return userService.findAll();
-//	}
 	
 	public Long createWrongOrder(Long stockId) throws Exception {
 		return orderService.createWrongOrder(stockId);
@@ -29,5 +23,9 @@ public class SeckillService{
 	
 	public Long createOrderRedisson(Long stockId) throws Exception {
 		return orderService.createOrderRedisson(stockId);
+	}
+	
+	public Long createOrderRedisReenrantLock(Long stockId) throws Exception {
+		return orderService.createOrderRedisReenrantLock(stockId);
 	}
 }

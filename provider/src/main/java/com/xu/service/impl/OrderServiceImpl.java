@@ -21,6 +21,7 @@ import com.xu.entity.Stock;
 import com.xu.repository.OrderRepos;
 import com.xu.repository.StockRepos;
 import com.xu.service.OrderService;
+import com.xu.utils.RedisReentrantLock;
 
 @Transactional(rollbackFor = Exception.class)
 @Service(interfaceName = "com.xu.service.OrderService")
@@ -34,9 +35,10 @@ public class OrderServiceImpl implements OrderService {
 	private RedisTemplate<String, Stock> redisTemplate;
 	@Autowired
 	private RedissonClient redissonClient;
+	@Autowired
+	private RedisReentrantLock redisReentrantLock;
 
 	@Override
-	@ServiceLimit
 	public Long createWrongOrder(Long stockId) throws Exception {
 		// 检查库存
 		Stock stock = checkStock(stockId);
@@ -125,6 +127,29 @@ public class OrderServiceImpl implements OrderService {
 			e.printStackTrace();
 		} finally {
 			lock.unlock();
+		}
+		return null;
+	}
+	
+	@Override
+	public Long createOrderRedisReenrantLock(Long stockId) throws Exception {
+		try {
+			boolean isLocked = redisReentrantLock.lock("secKill");
+			if (isLocked) {
+				// 检查库存
+				Stock stock = checkStock(stockId);
+
+				// 扣减库存
+				saleStock(stock);
+
+				// 生成订单
+				Long orderId = createOrder(stock);
+				return orderId;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			redisReentrantLock.unlock("secKill");
 		}
 		return null;
 	}

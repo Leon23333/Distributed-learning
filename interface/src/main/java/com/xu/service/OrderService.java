@@ -15,4 +15,9 @@ public interface OrderService {
 	 * Redisson分布式锁
 	 */
 	Long createOrderRedisson(Long stockId) throws Exception;
+
+	/*
+	 * Redis实现的分布式锁
+	 */
+	Long createOrderRedisReenrantLock(Long stockId) throws Exception;
 }
