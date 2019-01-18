@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.xu.entity.StockOrder;
+import com.xu.aop.RedisSimpleLimit;
 import com.xu.aop.ServiceLimit;
 import com.xu.config.RedisKeyPrefix;
 import com.xu.entity.Stock;
@@ -130,8 +131,9 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return null;
 	}
-	
+
 	@Override
+	@RedisSimpleLimit(key = "seckill")
 	public Long createOrderRedisReenrantLock(Long stockId) throws Exception {
 		try {
 			boolean isLocked = redisReentrantLock.lock("secKill");
@@ -146,8 +148,6 @@ public class OrderServiceImpl implements OrderService {
 				Long orderId = createOrder(stock);
 				return orderId;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		} finally {
 			redisReentrantLock.unlock("secKill");
 		}

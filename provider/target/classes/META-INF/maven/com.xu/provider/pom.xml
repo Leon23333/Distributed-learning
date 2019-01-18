@@ -78,7 +78,7 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			</dependency>
+		</dependency>
 	</dependencies>
 
 	<build>
