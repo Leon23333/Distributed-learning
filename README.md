@@ -10,3 +10,4 @@
 * Redisson分布式锁
 * 使用Redis实现的可重入分布式锁
 * 使用Redis的zset实现分布式限流
+* 消息队列
